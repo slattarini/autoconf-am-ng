@@ -16,8 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# We need AC_CONFIG_TESTDIR, AC_PROG_SED, AC_PROG_GREP.
-AC_PREREQ([2.60])
+AC_PREREQ([2.65])
 
 AC_INIT([GNU Autoconf],
 	m4_esyscmd([build-aux/git-version-gen .tarball-version]),
@@ -26,7 +25,7 @@ AC_CONFIG_SRCDIR([lib/autoconf/autoconf.m4])
 
 AC_CONFIG_AUX_DIR([build-aux])
 
-AM_INIT_AUTOMAKE([1.11 dist-xz readme-alpha no-texinfo.tex std-options])
+AM_INIT_AUTOMAKE([1.12a ng dist-xz readme-alpha no-texinfo.tex std-options])
 
 AB_INIT
 
