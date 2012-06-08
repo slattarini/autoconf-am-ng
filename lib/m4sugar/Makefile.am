@@ -21,8 +21,8 @@ nodist_m4sugarlib_DATA = version.m4 m4sugar.m4f m4sh.m4f
 CLEANFILES = $(nodist_m4sugarlib_DATA)
 
 # Get the release year from ../ChangeLog.
-RELEASE_YEAR = \
-  `sed 's/^\([0-9][0-9][0-9][0-9]\).*/\1/;q' $(top_srcdir)/ChangeLog`
+RELEASE_YEAR := $(shell sed 's/^\([0-9][0-9][0-9][0-9]\).*/\1/;q' \
+                            $(top_srcdir)/ChangeLog)
 
 ## ------------ ##
 ## version.m4.  ##
@@ -42,7 +42,7 @@ version.m4: Makefile
 	  echo 'm4_define([m4_PACKAGE_STRING],    [$(PACKAGE_STRING)])' && \
 	  echo 'm4_define([m4_PACKAGE_BUGREPORT], [$(PACKAGE_BUGREPORT)])' && \
 	  echo 'm4_define([m4_PACKAGE_URL],       [$(PACKAGE_URL)])' && \
-	  echo 'm4_define([m4_PACKAGE_YEAR],      ['$(RELEASE_YEAR)'])'; \
+	  echo 'm4_define([m4_PACKAGE_YEAR],      [$(RELEASE_YEAR)])'; \
 	} > $@-t
 	mv $@-t $@
 

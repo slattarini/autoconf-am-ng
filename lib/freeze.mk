@@ -20,11 +20,9 @@
 ## Freeze M4 files.  ##
 ## ----------------- ##
 
-SUFFIXES = .m4 .m4f
-
 AUTOM4TE_CFG = $(top_builddir)/lib/autom4te.cfg
 $(AUTOM4TE_CFG): $(top_srcdir)/lib/autom4te.in
-	cd $(top_builddir)/lib && $(MAKE) $(AM_MAKEFLAGS) autom4te.cfg
+	$(MAKE) -C $(top_builddir)/lib autom4te.cfg
 
 # Do not use AUTOM4TE here, since maint.mk (my-distcheck)
 # checks if we are independent of Autoconf by defining AUTOM4TE (and
@@ -41,7 +39,7 @@ MY_AUTOM4TE =									\
 # or an improper paren etc.
 # It may happen that the output does not end with an end of line, hence
 # force an end of line when reporting errors.
-.m4.m4f:
+%.m4f: %.m4
 	$(MY_AUTOM4TE)				\
 		--language=$*			\
 		--freeze			\
@@ -57,7 +55,7 @@ m4f_dependencies = $(top_builddir)/bin/autom4te $(AUTOM4TE_CFG)
 
 # For parallel builds.
 $(build_libdir)/m4sugar/version.m4:
-	cd $(build_libdir)/m4sugar && $(MAKE) $(AM_MAKEFLAGS) version.m4
+	$(MAKE) -C $(build_libdir)/m4sugar version.m4
 
 m4sugar_m4f_dependencies =			\
 	$(m4f_dependencies)			\

@@ -103,14 +103,14 @@ distclean-local:
 	if test x"$(VPATH)" != x ; then rm -f GNUmakefile ; fi
 
 # Perl coverage statistics.
-PERL_COVERAGE_DB = `pwd`/cover_db
+PERL_COVERAGE_DB = $(CURDIR)/cover_db
 PERL_COVERAGE_FLAGS = -MDevel::Cover=-db,$(PERL_COVERAGE_DB),-silent,on,-summary,off
 PERL_COVER = cover
 
 check-coverage-run: all
 	$(mkinstalldirs) $(PERL_COVERAGE_DB)
 	PERL5OPT="$(PERL_COVERAGE_FLAGS)"; export PERL5OPT; \
-	$(MAKE) $(AM_MAKEFLAGS) check
+	$(MAKE) check
 
 check-coverage-report:
 	@if test ! -d $(PERL_COVERAGE_DB); then \
@@ -123,7 +123,7 @@ check-coverage-report:
 # We don't use direct dependencies here because we'd like to be able
 # to invoke the report even after interrupted check-coverage.
 check-coverage: check-coverage-run
-	$(MAKE) $(AM_MAKEFLAGS) check-coverage-report
+	$(MAKE) check-coverage-report
 
 clean-local: clean-coverage
 clean-coverage:

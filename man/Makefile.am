@@ -48,9 +48,7 @@ remove_time_stamp = 's/^\(\.TH[^"]*"[^"]*"[^"]*\)"[^"]*"/\1/'
 
 MOSTLYCLEANFILES = $(srcdir)/*.t
 
-SUFFIXES = .x .1
-
-.x.1:
+%.1: %.x
 	@echo "Updating man page $@"
 	PATH="$(top_builddir)/tests$(PATH_SEPARATOR)$(top_srcdir)/build-aux$(PATH_SEPARATOR)$$PATH"; \
 	export PATH; \
@@ -58,7 +56,7 @@ SUFFIXES = .x .1
 	    --include=$*.x \
 	    --include=$(srcdir)/common.x \
 	    --source='$(PACKAGE_STRING)' \
-	    --output=$@.t `echo '$*' | sed 's,.*/,,'`
+	    --output=$@.t $(*F)
 	if sed $(remove_time_stamp) $@ >$@a.t 2>/dev/null && \
 	   sed $(remove_time_stamp) $@.t | cmp $@a.t - >/dev/null 2>&1; then \
 		touch $@; \

@@ -68,8 +68,7 @@ edit = sed \
 
 $(wrappers): wrapper.in
 	rm -f $@ $@.tmp
-	input=wrapper.in; \
-	$(edit) wrapper.in >$@.tmp
+	$(edit) $< >$@.tmp
 	chmod +x $@.tmp
 	chmod a-w $@.tmp
 	mv -f $@.tmp $@
@@ -116,7 +115,7 @@ $(TESTSUITE): package.m4 \
 	      local.at \
 	      $(TESTSUITE_AT) \
 	      $(autotest_m4f_dependencies)
-	cd $(top_builddir)/lib/autotest && $(MAKE) $(AM_MAKEFLAGS) autotest.m4f
+	$(MAKE) -C $(top_builddir)/lib/autotest autotest.m4f
 	$(AUTOTEST) -I . -I $(srcdir) suite.at -o $@.tmp
 	mv $@.tmp $@
 
@@ -186,8 +185,8 @@ $(TESTSUITE_GENERATED_AT): mktests.stamp
 mktests.stamp : mktests.sh $(AUTOCONF_FILES)
 	@rm -f mktests.tmp
 	@touch mktests.tmp
-	cd $(srcdir) && ./mktests.sh \
-	  `echo " "$(AUTOCONF_FILES) | sed 's, [^ ]*/, ../lib/autoconf/,g'`
+	cd $(srcdir) \
+	  && ./mktests.sh $(patsubst %/,../lib/autoconf/%,$(AUTOCONF_FILES))
 	@mv -f mktests.tmp $@
 
 ## Distribute the stamp file, since we distribute the generated files.
@@ -199,8 +198,8 @@ MAINTAINERCLEANFILES += mktests.stamp
 
 # These cannot be run in parallel.
 maintainer-check:
-	$(MAKE) $(AM_MAKEFLAGS) maintainer-check-posix
-	$(MAKE) $(AM_MAKEFLAGS) maintainer-check-c++
+	$(MAKE) maintainer-check-posix
+	$(MAKE) maintainer-check-c++
 
 # The hairy heredoc is more robust than using echo.
 CLEANFILES += expr
@@ -219,9 +218,9 @@ expr:
 
 # Try the test suite with more severe environments.
 maintainer-check-posix: expr
-	POSIXLY_CORRECT=yes $(MAKE) $(AM_MAKEFLAGS) check
+	POSIXLY_CORRECT=yes $(MAKE) check
 	rm expr
 
 # Try using G++ as a C compiler.
 maintainer-check-c++:
-	CC=g++ $(MAKE) $(AM_MAKEFLAGS) check
+	CC=g++ $(MAKE) check
