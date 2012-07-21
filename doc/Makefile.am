@@ -24,10 +24,3 @@ autoconf_TEXINFOS = fdl.texi install.texi
 standards_TEXINFOS = fdl.texi gnu-oids.texi make-stds.texi
 
 EXTRA_DIST = gendocs_template
-
-# Files from texi2dvi that should be removed, but which Automake does
-# not know.
-CLEANFILES = autoconf.ACs  autoconf.cvs  autoconf.MSs  autoconf.prs \
-	     autoconf.ATs  autoconf.evs  autoconf.fns  autoconf.ovs \
-	     autoconf.ca   autoconf.CA   autoconf.cas  autoconf.CAs \
-	     autoconf.tmp
