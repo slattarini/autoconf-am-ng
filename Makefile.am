@@ -31,6 +31,8 @@ EXTRA_DIST = ChangeLog.0 ChangeLog.1 ChangeLog.2 ChangeLog.3 \
 	     build-aux/gitlog-to-changelog \
 	     .prev-version .version
 
+AM_DIST_FORMATS = gzip xz
+
 ## --------- ##
 ## INSTALL.  ##
 ## --------- ##
