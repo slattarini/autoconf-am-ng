@@ -23,6 +23,7 @@ Makefile.in
 /bin/autoscan
 /bin/autoupdate
 /bin/ifnames
+/build-aux/am-ng
 /build-aux/elisp-comp
 /build-aux/install-sh
 /build-aux/mdate-sh
