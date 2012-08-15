@@ -102,7 +102,7 @@ dist-hook: gen-ChangeLog
 # Arrange to remove the symlink to GNUmakefile in VPATH builds.
 # TODO remove this once automake vs. AC_CONFIG_LINKS issue is fixed.
 distclean-local:
-	if test x"$(VPATH)" != x ; then rm -f GNUmakefile ; fi
+	test "$(srcdir)" = . || rm -f GNUmakefile
 
 # Perl coverage statistics.
 PERL_COVERAGE_DB = $(CURDIR)/cover_db
